@@ -15,6 +15,9 @@ class CreateCotacoesTable extends Migration
     {
         Schema::create('cotacoes', function (Blueprint $table) {
             $table->id();
+            $table->string('moeda_origem',3);
+            $table->string('moeda_destino',3);
+            $table->string('forma_pagamento',14);
             $table->timestamps();
         });
     }
