@@ -10,6 +10,7 @@
             width: 100%;
         }
     </style>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
     <title>Cotações</title>
   </head>
   <body>
