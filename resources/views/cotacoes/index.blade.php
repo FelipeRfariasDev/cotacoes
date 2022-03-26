@@ -17,7 +17,7 @@
         <option value="70000">70.000,00</option>
       </select>
     </div>
-  </div>  
+  </div>
   <div class="row">
     <div class="col-12">
       <label>Moeda para conversão</label>
@@ -28,7 +28,7 @@
     </select>
     </div>
   </div>
-  <div class="row">  
+  <div class="row">
     <div class="col-12">
     <label>Forma de Pagamento</label>
     <select name="forma_pagamento" class="form-control" required>
@@ -36,42 +36,28 @@
       <option value="cartao_credito">Cartão de Crédito</option>
     </select>
     </div>
-  </div> 
-  <div class="row">  
+  </div>
+  <div class="row">
     <div class="col-12">
       <input type="submit" value="Calcular" class="btn btn-success" style="margin-top: 10px;">
     </div>
   </div>
-</form>    
+</form>
   @if($exibir_resultado)
   <div>
-    
+
       <h3>Cotações Resultado Parâmetros de saída:</h3>
 
-      <strong>Moeda de origem BRL R$</strong> {{$moeda_origem_blr}} <br>
+      <strong>Valor(Compra) para conversão BRL R$</strong> {{$moeda_origem_blr}} <br>
       <strong>Forma de pagamento</strong> {{$forma_pagamento}} <br>
-      <strong>Moeda de destino {{$nome_moeda_destino}}</strong> {{$valor_moeda_destino}}<br>
-      <strong>Valor Total R$ </strong> {{$valor_total_reais}}<br>
-      <strong>Taxa Conversão R$ </strong>{{$vrl_taxa_conversao_reais}}<br>
-      <strong>Valor Total + Taxa Conversão R$ ({{$getJurosValorTotalPercentual}}%) </strong> {{$vrl_tot_mult_taxa_conversao}}<br>
-      <strong>Valor Total + Juros R$ ({{$getJurosTipoPagamento[$forma_pagamento]}}) </strong> {{$valor_total_reais_juros}}<br>
-      <strong>Cotação realizada em</strong> {{$data_hora_cotacao}}
-  </div>
-
-  <div>
-
-    <h3>Cotações Resultado Parâmetros de saída:</h3>
-
-    <strong>Moeda de origem:</strong> BRL <br>
-    <strong>Moeda de destino:</strong> USD <br>
-    <strong>Valor para conversão:</strong> R$ 5.000,00 <br>
-    <strong>Forma de pagamento:</strong> Boleto <br>
-    <strong>Valor da "Moeda de destino" usado para conversão:</strong> $ 5,30 <br>
-    <strong>Valor comprado em "Moeda de destino":</strong> $ 921,03 (taxas aplicadas no valor de compra diminuindo no valor total de conversão) <br>
-    <strong>Taxa de pagamento:</strong> R$ 68,50 <br>
-    <strong>Taxa de conversão:</strong> R$ 50,00 <br>
-    <strong>Valor utilizado para conversão descontando as taxas:</strong> R$ 4.881,50 
+      <strong>Valor da moeda de destino {{$nome_moeda_destino}}</strong> {{$valor_moeda_destino}}<br>
+      <strong>Valor Total R$ </strong> {{$valor_total_reais}}<br><br>
+      Aplicar taxa de 2% pela conversão para valores abaixo de R$ 3.700,00 e 1% para valores maiores que R$ 3.700,01, essa taxa deve ser aplicada apenas no valor da compra e não sobre o valor já com a taxa de forma de pagamento R$ {{$vrl_taxa_conversao_reais}}<br><br>
+      Taxa de acordo com o Tipo de Pagamento Boleto taxa de 1,37% & Cartão de Crédito taxa de 7,73% foi aplicado a taxa de ({{$getJurosTipoPagamento[$forma_pagamento]}}%) totalizando R$ {{$getValorTipoPagamentoJuros}}<br><br>
+      Valor Total é R$ {{$valor_total_reais}} + Taxa Conversão ({{$getJurosValorTotalPercentual}}%) sendo o valor R$ {{$vrl_taxa_conversao_reais}} totalizando R$ {{$vrl_tot_mult_taxa_conversao}}<br><br>
+      Valor Total R$ {{$valor_total_reais}} + Taxa de acordo com o Tipo de Pagamento Boleto/Cartão ({{$getJurosTipoPagamento[$forma_pagamento]}}) sendo R$ {{$getValorTipoPagamentoJuros}} totalizando R$ {{$valor_total_reais_juros}} <br><br>
+      Cotação realizada em {{$data_hora_cotacao}}
   </div>
   @endif
- 
+
 @endsection

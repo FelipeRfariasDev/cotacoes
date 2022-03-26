@@ -27,15 +27,15 @@ class CotacoesController extends Controller
             $exibirValoresConvertido        = $cotacoes->getValorConvertidoMoedaDestino($valor_real_BRL,$nome_moeda_destino,$forma_pagamento);
             $nome_moeda_destino             = $exibirValoresConvertido["nome_moeda_destino"];
             $valor_real_BRL                 = ($exibirValoresConvertido["valor_real_BRL"]);
-            
+
             $valor_moeda_destino            = $exibirValoresConvertido["valor_moeda_destino"];
             $valor_total_multiplicado       = $exibirValoresConvertido["valor_total_multiplicado"];
             $vrl_taxa_conversao_reais       = $exibirValoresConvertido["vrl_taxa_conversao_reais"];
-            
+
             $vrl_tot_mult_taxa_conversao    = $exibirValoresConvertido["vrl_tot_mult_taxa_conversao"];
             $valor_total_multiplicado_juros = $exibirValoresConvertido["valor_total_multiplicado_juros"];
             $getJurosTipoPagamento          = $cotacoes->getJurosTipoPagamento();
-            $getJurosValorTotal             = $cotacoes->getJurosValorTotal();
+            $getValorTipoPagamentoJuros     = $cotacoes->getValorTipoPagamentoJuros($valor_total_multiplicado,$forma_pagamento);
             $data_hora_cotacao              = date('d/m/Y H:i:s', time());
             $getJurosValorTotalPercentual   = $cotacoes->getJurosValorTotalPercentual($valor_total_multiplicado);
 
@@ -45,6 +45,7 @@ class CotacoesController extends Controller
                 "nome_moeda_destino"            =>  $nome_moeda_destino,
                 "valor_moeda_destino"           =>  $valor_moeda_destino,
                 "forma_pagamento"               =>  $forma_pagamento,
+                "getValorTipoPagamentoJuros"    =>  number_format($getValorTipoPagamentoJuros,2,',','.'),
                 "getJurosTipoPagamento"         =>  $getJurosTipoPagamento,
                 "vrl_taxa_conversao_reais"      =>  number_format($vrl_taxa_conversao_reais,2,',','.'),
                 "getJurosValorTotalPercentual"  =>  $getJurosValorTotalPercentual,

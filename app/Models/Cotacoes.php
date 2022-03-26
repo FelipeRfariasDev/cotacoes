@@ -8,22 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Cotacoes extends Model
 {
     use HasFactory;
-    
+
 
     public function getValorMoedas(){
         $curl = curl_init();
-      
+
         curl_setopt_array($curl, array(
           CURLOPT_URL => "https://economia.awesomeapi.com.br/json/all",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_CUSTOMREQUEST => "GET"
         ));
-        
+
         $response = curl_exec($curl);
         curl_close($curl);
-        
+
         $retorno = json_decode($response,true);
-      
+
         return $retorno;
       }
 
@@ -56,6 +56,12 @@ class Cotacoes extends Model
       private function getTaxaConversaoReais($valor_total_multiplicado){
         return ($valor_total_multiplicado / 100 * $this->getJurosValorTotalPercentual($valor_total_multiplicado));
       }
+
+      public function getValorTipoPagamentoJuros($valor_total_multiplicado,$forma_pagamento){
+        $juros = $this->getJurosTipoPagamento();
+        return ($valor_total_multiplicado / 100 * $juros[$forma_pagamento]);
+      }
+
       private function getValorTotalPercentualJuros($valor_total_multiplicado,$forma_pagamento){
         $juros = $this->getJurosTipoPagamento();
         return $valor_total_multiplicado + ($valor_total_multiplicado / 100 * $juros[$forma_pagamento]);
